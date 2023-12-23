@@ -21,6 +21,16 @@ in
       name = "Bibata-Modern-Ice";
       size = 24;
   };
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  };
+
+  home.file.".config/hypr/hyprland.conf" = {
+    source = ../configfiles/hypr/hyprland.conf;
+    recursive = true;
+  };
+
   qt.enable = true;
   qt.platformTheme = "gtk";
   qt.style.name = "adwaita-dark";
@@ -112,6 +122,21 @@ in
           tab_bar_background #101014
       '';
     };
+    # Enable zsh
+    zsh = {
+      enable = true;
+      syntaxHighlighting.enable = true;
+      shellAliases = {
+        sv="sudo vim";
+	v="vim";
+        ls="lsd";
+        ll="lsd -l";
+        la="lsd -a";
+        lal="lsd -al";
+        ".."="cd ..";
+      };
+    };
+
     bash = {
       enable = true;
       enableCompletion = true;

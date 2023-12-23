@@ -9,7 +9,7 @@
     [   # Include the results of the hardware scan.
         ./hardware-configuration.nix
         # Include Home Manager
-        # ./home.nix
+        ./home.nix
     ];
 
   # Bootloader
@@ -45,7 +45,15 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
+  users.defaultUserShell = pkgs.zsh;
+
   programs.hyprland.enable = true;
+  programs.zsh.enable = true;
+
+  # install gnome
+  services.xserver.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -53,10 +61,12 @@
     # Utils
     vim
     wget
+    lsd
     btop
     git
     unzip
     swaynotificationcenter
+    wofi
     # Misc
     wl-clipboard
     cowsay
@@ -84,6 +94,11 @@
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
+  # goxlr configuration
+  services.goxlr-utility = {
+    autoStart.xdg = true;
+    enable = true;
+  };
 
   # Steam Configuration
   programs.steam = {
@@ -203,6 +218,7 @@
   };
   
   nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

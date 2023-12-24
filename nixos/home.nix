@@ -1,14 +1,10 @@
 { config, pkgs, ... }:
 
-let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
-in
 {
-  imports = [
-    (import "${home-manager}/nixos")
+  imports =
+  [
+    # ../modules/programs/neovim.nix
   ];
-
-  home-manager.users.andrew = {
 
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
@@ -20,10 +16,6 @@ in
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
       size = 24;
-  };
-  dconf = {
-    enable = true;
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 
   home.file.".config/hypr/hyprland.conf" = {
@@ -378,6 +370,5 @@ in
 	}
       '';
     };
-  };
   };
 }

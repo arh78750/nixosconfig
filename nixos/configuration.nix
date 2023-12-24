@@ -5,6 +5,7 @@
   config,
   pkgs,
   username,
+  neovim-flake,
   ...
 }: {
   imports = [
@@ -61,6 +62,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
+    (import ../modules/scripts/autohypr.nix {inherit pkgs;})
     vim
     wget
     lsd
@@ -69,6 +71,7 @@
     unzip
     swaynotificationcenter
     wofi
+    swww
     # Misc
     wl-clipboard
     cowsay
@@ -217,7 +220,11 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -11,11 +11,16 @@
     neovim-flake = {
       url = "github:jordanisaacs/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    }
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, neovim-flake, ... }:
-  let
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    neovim-flake,
+    ...
+  }: let
     # -- SYSTEM SETTINGS -- #
     system = "x86_64-linux";
     hostname = "phantom";
@@ -29,7 +34,8 @@
         modules = [
           ./nixos/configuration.nix
 
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.andrew = import ./nixos/home.nix;
@@ -40,6 +46,7 @@
           inherit hostname;
           inherit username;
           inherit name;
+          inherit (inputs) neovim-flake;
         };
       };
     };

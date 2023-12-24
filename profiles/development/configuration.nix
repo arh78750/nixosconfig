@@ -11,8 +11,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../modules/hardware/goxlr.nix
-    ../modules/programs/neovim.nix
+    ../../modules/hardware/goxlr.nix
+    ../../modules/programs/neovim.nix
   ];
 
   # Bootloader
@@ -56,13 +56,12 @@
   # install gnome
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
-    (import ../modules/scripts/autohypr.nix {inherit pkgs;})
+    (import ../../modules/scripts/autohypr.nix {inherit pkgs;})
     vim
     wget
     lsd
@@ -83,7 +82,9 @@
     obs-studio
     # Online
     firefox
-    discord
+    discord-canary
+    xwaylandvideobridge
+#    xdg-desktop-portal-hyprland
     # Dev
     glibc
     # Audio
@@ -219,7 +220,6 @@
     channel = "https://nixos.org/channels/nixos-23.11";
   };
 
-  nixpkgs.config.allowUnfree = true;
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     substituters = ["https://hyprland.cachix.org"];

@@ -4,7 +4,7 @@
   ...
 }: {
   home.file.".config/hypr" = {
-    source = ../../configfiles/hypr-${profile};
+    source = ../../configfiles/hypr;
     recursive = true;
   };
 

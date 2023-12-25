@@ -4,8 +4,11 @@
 {
   config,
   pkgs,
+  unstable,
   username,
+  system,
   neovim-flake,
+  inputs,
   ...
 }: {
   imports = [
@@ -13,6 +16,7 @@
     ./hardware-configuration.nix
     ../../modules/hardware/goxlr.nix
     ../../modules/programs/neovim.nix
+    ../../modules/programs/clonehero.nix
   ];
 
   # Bootloader
@@ -84,7 +88,7 @@
     firefox
     discord-canary
     xwaylandvideobridge
-#    xdg-desktop-portal-hyprland
+    #    xdg-desktop-portal-hyprland
     # Dev
     glibc
     # Audio
@@ -220,6 +224,10 @@
     channel = "https://nixos.org/channels/nixos-23.11";
   };
 
+  nixpkgs.config = {
+    # Allow proprietary packages
+    allowUnfree = true;
+  };
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     substituters = ["https://hyprland.cachix.org"];

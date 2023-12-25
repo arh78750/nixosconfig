@@ -5,6 +5,7 @@
     self,
     nixpkgs,
     home-manager,
+    unstable,
     neovim-flake,
     ...
   }: let
@@ -16,26 +17,25 @@
     username = "andrew";
     name = "andrew";
     # create patched nixpkgs
-    nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
-      name = "nixpkgs-patched";
-      src = nixpkgs;
-      patches = [
-        ./patches/alsa-ucm-conf-fix.patch
-      ];
-    };
-    # configure pkgs
-    pkgs = import nixpkgs-patched {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-      };
-    };
+    #    nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
+    #      name = "nixpkgs-patched";
+    #      src = nixpkgs;
+    #      patches = [
+    #        ./patches/alsa-ucm-conf-fix.patch ## so shoulda thought of this but patching alsa makes anything that depends on it rebuild which is A LOT. Computer ran out of memory while building
+    #      ];
+    #    };
+    #    # configure pkgs
+    #    pkgs = import nixpkgs-patched {
+    #      inherit system;
+    #      config = {
+    #        allowUnfree = true;
+    #        allowUnfreePredicate = _: true;
+    #      };
+    #    };
   in {
     nixosConfigurations = {
       phantom = nixpkgs.lib.nixosSystem {
-        inherit system;
-        inherit pkgs;
+        inherit system; # pass system to the nixosSystem Function
         modules = [
           (./. + "/profiles" + ("/" + profile) + "/configuration.nix")
           home-manager.nixosModules.home-manager
@@ -46,11 +46,16 @@
           }
         ];
         specialArgs = {
+          # pass vars to all the modules
           inherit system;
           inherit hostname;
           inherit username;
           inherit name;
           inherit (inputs) neovim-flake;
+          unstable = import unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
         };
       };
     };
@@ -58,6 +63,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-23.11";
+    unstable.url = "nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";

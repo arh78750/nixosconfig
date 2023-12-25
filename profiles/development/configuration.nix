@@ -13,6 +13,7 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
+    ../../system/hardware/goxlr.nix
     ../common/configuration.nix
   ];
 
@@ -27,7 +28,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
-    (import ../../modules/scripts/autohypr.nix {inherit pkgs;})
+    (import ../../system/scripts/autohypr.nix {inherit pkgs;})
   ];
 
   # goxlr configuration

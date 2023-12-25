@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ../../modules/wm/hyprland.nix
+    ../../user/wm/hyprland.nix
   ];
 
   home.username = "andrew";

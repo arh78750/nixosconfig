@@ -50,6 +50,7 @@
           inherit system;
           inherit hostname;
           inherit username;
+          inherit profile;
           inherit name;
           inherit (inputs) neovim-flake;
           unstable = import unstable {

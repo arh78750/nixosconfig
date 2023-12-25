@@ -1,10 +1,11 @@
 {
   config,
   pkgs,
+  profile,
   ...
 }: {
   imports = [
-    ../../user/wm/hyprland.nix
+    #(import ../../user/wm/hyprland.nix {inherit config profile pkgs;})
   ];
 
   home.username = "andrew";

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sudo nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --max-jobs 1 --cores 20 --flake .

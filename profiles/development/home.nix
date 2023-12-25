@@ -6,6 +6,7 @@
 }: {
   imports = [
     ../../user/wm/hyprland.nix
+    ../../user/wm/tofi.nix
   ];
 
   home.username = "andrew";

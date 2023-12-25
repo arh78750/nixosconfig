@@ -66,6 +66,7 @@
     swaynotificationcenter
     wofi
     swww
+    tofi
     # Misc
     wl-clipboard
     cowsay
@@ -73,12 +74,14 @@
     pkg-config
     lolcat
     tldr
+    networkmanager
     # Photo & Video
     mpv
     obs-studio
     # Online
     firefox
     discord-canary
+    webcord
     xwaylandvideobridge
     #    xdg-desktop-portal-hyprland
     # Dev
@@ -141,11 +144,6 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     MOZ_ENABLE_WAYLAND = "1";
-    # NVIDIA stuff
-    #    LIBVA_DRIVER_NAME = "nvidia";
-    #    GBM_BACKEND = "nvidia-drm";
-    #    __GLX_VENDOR_LIBRARY_NAME = "nivida";
-    #    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -177,14 +175,14 @@
 
   # Automatic Updates
   system.autoUpgrade = {
-    enable = true;
+    enable = false;
     channel = "https://nixos.org/channels/nixos-23.11";
   };
 
-  nixpkgs.config = {
-    # Allow proprietary packages
-    allowUnfree = true;
-  };
+  # nixpkgs.config = {
+  #   # Allow proprietary packages
+  #   allowUnfree = true;
+  # };
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     substituters = ["https://hyprland.cachix.org"];

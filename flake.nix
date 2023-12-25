@@ -17,25 +17,26 @@
     username = "andrew";
     name = "andrew";
     # create patched nixpkgs
-    #    nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
-    #      name = "nixpkgs-patched";
-    #      src = nixpkgs;
-    #      patches = [
-    #        ./patches/alsa-ucm-conf-fix.patch ## so shoulda thought of this but patching alsa makes anything that depends on it rebuild which is A LOT. Computer ran out of memory while building
-    #      ];
-    #    };
-    #    # configure pkgs
-    #    pkgs = import nixpkgs-patched {
-    #      inherit system;
-    #      config = {
-    #        allowUnfree = true;
-    #        allowUnfreePredicate = _: true;
-    #      };
-    #    };
+    nixpkgs-patched = (import nixpkgs {inherit system;}).applyPatches {
+      name = "nixpkgs-patched";
+      src = nixpkgs;
+      patches = [
+        ./patches/alsa-ucm-conf-fix.patch ## so shoulda thought of this but patching alsa makes anything that depends on it rebuild which is A LOT. Computer ran out of memory while building
+      ];
+    };
+    # configure pkgs
+    pkgs = import nixpkgs-patched {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+    };
   in {
     nixosConfigurations = {
       phantom = nixpkgs.lib.nixosSystem {
         inherit system; # pass system to the nixosSystem Function
+        inherit pkgs;
         modules = [
           (./. + "/profiles" + ("/" + profile) + "/configuration.nix")
           home-manager.nixosModules.home-manager

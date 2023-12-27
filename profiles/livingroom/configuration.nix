@@ -29,12 +29,8 @@
     # Utils
     (import ../../system/scripts/autohypr.nix {inherit pkgs;})
   ];
+  nixpkgs.config.allowUnfree = true;
 
-  # goxlr configuration
-  services.goxlr-utility = {
-    autoStart.xdg = true;
-    enable = true;
-  };
 
   # Nix Package Management
   nix = {
@@ -45,6 +41,8 @@
       options = "--delete-older-than 7d";
     };
   };
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Set Environment Variables
   environment.variables = {

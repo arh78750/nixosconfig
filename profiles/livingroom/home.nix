@@ -12,7 +12,7 @@
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
   home.stateVersion = "23.11";
-  hyprconf.profile = "development";
+  hyprconf.profile = "livingroom";
 
   home.pointerCursor = {
     gtk.enable = true;

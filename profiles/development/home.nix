@@ -2,6 +2,7 @@
   config,
   pkgs,
   profile,
+  lib,
   ...
 }: {
   imports = [
@@ -12,6 +13,8 @@
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
   home.stateVersion = "23.11";
+
+  hyprconf.profile = "development";
 
   home.pointerCursor = {
     gtk.enable = true;

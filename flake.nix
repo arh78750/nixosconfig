@@ -30,12 +30,17 @@
       config = {
         allowUnfree = true;
         allowUnfreePredicate = _: true;
+        permittedInsecurePackages = [
+          "electron-25.9.0"
+        ];
       };
     };
+    lib = pkgs.lib;
   in {
     nixosConfigurations = {
       phantom = nixpkgs.lib.nixosSystem {
         inherit system; # pass system to the nixosSystem Function
+        inherit lib;
         inherit pkgs;
         modules = [
           (./. + "/profiles" + ("/" + profile) + "/configuration.nix")

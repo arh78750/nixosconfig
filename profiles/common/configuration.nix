@@ -62,6 +62,7 @@
     lsd
     btop
     git
+    gnome.nautilus
     unzip
     swaynotificationcenter
     wofi
@@ -75,6 +76,8 @@
     lolcat
     tldr
     networkmanager
+    unstable.discord-screenaudio
+    unstable.r2modman
     # Photo & Video
     mpv
     obs-studio
@@ -99,6 +102,8 @@
   fonts.packages = with pkgs; [
     (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
+
+  services.flatpak.enable = true;
 
   # Steam Configuration
   programs.steam = {

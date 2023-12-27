@@ -29,6 +29,7 @@
   environment.systemPackages = with pkgs; [
     # Utils
     (import ../../system/scripts/autohypr.nix {inherit pkgs;})
+    cura
   ];
 
   # goxlr configuration

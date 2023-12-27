@@ -5,12 +5,14 @@
   ...
 }: {
   imports = [
-    (import ../../user/wm/hyprland.nix {inherit config profile;})
+    ../../user/wm/hyprland.nix
+    ../../user/wm/tofi.nix
   ];
 
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
   home.stateVersion = "23.11";
+  hyprconf.profile = "development";
 
   home.pointerCursor = {
     gtk.enable = true;

@@ -13,7 +13,6 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    ../../hardware-configuration.nix
     ../../system/programs/neovim.nix
     ../../system/programs/clonehero.nix
   ];
@@ -24,7 +23,6 @@
 
   # Networking
   networking.networkmanager.enable = true;
-  networking.hostName = "phantom"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -104,6 +102,15 @@
   ];
 
   services.flatpak.enable = true;
+
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "-";
+      item = "nofile";
+      value = "524288";
+    }
+  ];
 
   # Steam Configuration
   programs.steam = {

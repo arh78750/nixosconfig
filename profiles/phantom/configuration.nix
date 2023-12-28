@@ -13,6 +13,8 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
+    ../../system/hardware/developer/hardware-configuration.nix
+    ../../system/hardware/developer/goxlr.nix
     ../common/configuration.nix
   ];
 
@@ -23,14 +25,21 @@
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
+  networking.hostName = "phantom"; # Define your hostname.
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
     (import ../../system/scripts/autohypr.nix {inherit pkgs;})
+    cura
   ];
-  nixpkgs.config.allowUnfree = true;
 
+  # goxlr configuration
+  services.goxlr-utility = {
+    autoStart.xdg = true;
+    enable = true;
+  };
 
   # Nix Package Management
   nix = {
@@ -41,8 +50,6 @@
       options = "--delete-older-than 7d";
     };
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Set Environment Variables
   environment.variables = {

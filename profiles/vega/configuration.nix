@@ -12,31 +12,31 @@
   ...
 }: {
   imports = [
-    # Include the results of the hardware scan.
-    ../../system/hardware/goxlr.nix
+    # Include the results of the hardware scan.inputs
+    ../../system/hardware/livingroom/hardware-configuration.nix
     ../common/configuration.nix
   ];
 
   programs.hyprland.enable = true;
   programs.zsh.enable = true;
 
+  networking.hostName = "vega"; # Define your hostname.
+
   # install gnome
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    # Load nvidia driver for Xorg and Wayland
+    videoDrivers = ["nvidia"];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
     (import ../../system/scripts/autohypr.nix {inherit pkgs;})
-    cura
   ];
-
-  # goxlr configuration
-  services.goxlr-utility = {
-    autoStart.xdg = true;
-    enable = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   # Nix Package Management
   nix = {
@@ -48,6 +48,8 @@
     };
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Set Environment Variables
   environment.variables = {
     # NVIDIA stuff
@@ -56,9 +58,6 @@
     __GLX_VENDOR_LIBRARY_NAME = "nivida";
     WLR_NO_HARDWARE_CURSORS = "1";
   };
-
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     # Modesetting is required.

@@ -61,29 +61,27 @@
           };
         };
       };
-    };
-    vega = nixpkgs.lib.nixosSystem {
-      inherit system; # pass system to the nixosSystem Function
-      inherit lib;
-      inherit pkgs;
-      modules = [
-        (./. + "/profiles/vega/configuration.nix")
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.andrew = import (./. + "/profiles/vega/home.nix");
-        }
-      ];
-      specialArgs = {
-        # pass vars to all the modules
-        inherit system;
-        inherit username;
-        inherit name;
-        inherit (inputs) neovim-flake;
-        unstable = import unstable {
+      vega = nixpkgs.lib.nixosSystem {
+        inherit system; # pass system to the nixosSystem Function
+        modules = [
+          (./. + "/profiles/vega/configuration.nix")
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.andrew = import (./. + "/profiles/vega/home.nix");
+          }
+        ];
+        specialArgs = {
+          # pass vars to all the modules
           inherit system;
-          config.allowUnfree = true;
+          inherit username;
+          inherit name;
+          inherit (inputs) neovim-flake;
+          unstable = import unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
         };
       };
     };

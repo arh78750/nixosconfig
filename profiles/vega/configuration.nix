@@ -13,7 +13,7 @@
 }: {
   imports = [
     # Include the results of the hardware scan.inputs
-    ../../system/hardware/livingroom/hardware-configuration.nix
+    ../../system/hardware/vega/hardware-configuration.nix
     ../common/configuration.nix
   ];
 
@@ -26,6 +26,7 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
     # Load nvidia driver for Xorg and Wayland
     videoDrivers = ["nvidia"];
   };

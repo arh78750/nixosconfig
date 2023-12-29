@@ -73,6 +73,7 @@
     pkg-config
     lolcat
     tldr
+    unrar
     networkmanager
     unstable.discord-screenaudio
     unstable.r2modman

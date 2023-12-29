@@ -18,20 +18,12 @@
     ../common/configuration.nix
   ];
 
-  programs.hyprland.enable = false;
+  programs.hyprland.enable = true;
   programs.zsh.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      #      xdg-desktop-portal-gtk
-    ];
-    config.common.default = "*";
-  };
 
   # install gnome
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   networking.hostName = "phantom"; # Define your hostname.
 
@@ -39,12 +31,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
-    #(import ../../system/scripts/autohypr.nix {inherit pkgs;})
+    (import ../../system/scripts/autohypr.nix {inherit pkgs;})
     cura
-    lf
-    gnome.adwaita-icon-theme
-    gnomeExtensions.appindicator
-    #    xdg-desktop-portal-hyprland
   ];
 
   # goxlr configuration
@@ -99,6 +87,6 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 }

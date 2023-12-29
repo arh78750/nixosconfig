@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sudo nixos-rebuild switch  --flake .#vega
+sudo nixos-rebuild switch  --flake .

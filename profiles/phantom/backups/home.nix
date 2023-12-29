@@ -6,19 +6,15 @@
   ...
 }: {
   imports = [
-    #  ../../user/wm/hyprland.nix
+    ../../user/wm/hyprland.nix
     ../../user/wm/tofi.nix
   ];
 
   home.username = "andrew";
   home.homeDirectory = "/home/andrew";
   home.stateVersion = "23.11";
-  dconf = {
-    enable = true;
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-  };
 
-  #  hyprconf.profile = "development";
+  hyprconf.profile = "development";
 
   home.pointerCursor = {
     gtk.enable = true;

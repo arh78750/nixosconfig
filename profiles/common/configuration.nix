@@ -15,6 +15,7 @@
     # Include the results of the hardware scan.
     ../../system/programs/neovim.nix
     ../../system/programs/clonehero.nix
+    inputs.nix-gaming.nixosModules.steamCompat
   ];
 
   # Bootloader
@@ -66,6 +67,7 @@
     wofi
     swww
     tofi
+    steam
     # Misc
     wl-clipboard
     cowsay
@@ -83,14 +85,16 @@
     # Online
     firefox
     discord-canary
-    webcord
-    xwaylandvideobridge
+    unstable.webcord
+    unstable.xwaylandvideobridge
+    gamescope
     #    xdg-desktop-portal-hyprland
     # Dev
     glibc
     # Audio
     pavucontrol
     goxlr-utility
+    openssl_1_1
     # Fonts
     font-awesome
     symbola
@@ -118,6 +122,23 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+
+    # Custom option added by nix-gaming flake
+    extraCompatPackages = [
+      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+      pkgs.openssl_1_1
+      pkgs.openssl
+      pkgs.xorg.libXcursor
+      pkgs.xorg.libXi
+      pkgs.xorg.libXinerama
+      pkgs.xorg.libXScrnSaver
+      pkgs.libpng
+      pkgs.libpulseaudio
+      pkgs.libvorbis
+      pkgs.stdenv.cc.cc.lib
+      pkgs.libkrb5
+      pkgs.keyutils
+    ];
   };
 
   # OpenGL
@@ -146,9 +167,7 @@
       "\$/usr/local/bin"
     ];
     NIXPKGS_ALLOW_UNFREE = "1";
-    XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
     GDK_BACKEND = "wayland";
     CLUTTER_BACKEND = "wayland";
     SDL_VIDEODRIVER = "x11";

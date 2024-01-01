@@ -67,7 +67,14 @@
     wofi
     swww
     tofi
-    steam
+    killall
+    unstable.steam
+    lutris
+    # wine-staging (version with experimental features)
+    wineWowPackages.staging
+
+    # winetricks (all versions)
+    winetricks
     # Misc
     wl-clipboard
     cowsay
@@ -202,7 +209,6 @@
     jack.enable = true;
   };
   hardware.pulseaudio.enable = false;
-  sound.enable = true;
   security.rtkit.enable = true;
 
   # Automatic Updates

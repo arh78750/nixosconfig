@@ -52,6 +52,22 @@
 
   users.defaultUserShell = pkgs.zsh;
 
+  # raise ulimit to fix clone hero
+  systemd.user.extraConfig = "DefaultLimitNOFILE=32000";
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      value = "32768";
+    }
+    {
+      domain = "*";
+      item = "memlock";
+      type = "-";
+      value = "32768";
+    }
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -114,15 +130,6 @@
   ];
 
   services.flatpak.enable = true;
-
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "-";
-      item = "nofile";
-      value = "524288";
-    }
-  ];
 
   # Steam Configuration
   programs.steam = {
